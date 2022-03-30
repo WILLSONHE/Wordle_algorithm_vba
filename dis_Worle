@@ -1,0 +1,52 @@
+'to determine words in common
+Function wordPass(stringInput1 As String, stringInput2 As String) As Boolean
+    'determine static array
+    Dim letterList(5) As String
+    'input string letters into array
+    For i = 1 To 5
+        letterList(i) = Mid(stringInput1, i, 1)
+    Next
+    'match letter that found in mystery word
+    For i = 1 To 5
+        'match using InStr
+        If InStr(1, stringInput2, letterList(i), vbTextCompare) = 0 Then
+            wordPass = True
+        Else
+            wordPass = False
+            Exit For
+        End If
+    Next
+End Function
+
+'to determine word classes by vowel
+Function wordClass(stringInput As String) As String
+    'set empty class
+    wordClass = ""
+    'set static array for selected string
+    Dim letterList(5) As String
+    For i = 1 To 5
+        letterList(i) = Mid(stringInput, i, 1)
+    Next
+    'determine vowel and vowely for later matches
+    Dim vowel As String, vowely As String
+    vowel = "aeiou"
+    vowely = "aeiouy"
+    'start matching
+    For i = 1 To 5
+        If i = 1 Then
+            'find match for vowel at 1st letter excluding "y"
+            If InStr(1, vowel, letterList(i), vbTextCompare) = 0 Then
+                wordClass = wordClass & "c"
+            Else
+                wordClass = wordClass & "v"
+            End If
+        Else
+            'find match for vowel at last letter including "y"
+            If InStr(1, vowely, letterList(i), vbTextCompare) = 0 Then
+                wordClass = wordClass & "c"
+            Else
+                wordClass = wordClass & "v"
+            End If
+        End If
+    Next
+End Function
